@@ -4,10 +4,13 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[900, 620]"/>
+      <Dimension value="[914, 627]"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[914, 627]"/>
     </Property>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[900, 620]"/>
+      <Dimension value="[914, 627]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -98,6 +101,8 @@
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="editorJSP">
               <Properties>
+                <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
+                <Property name="verticalScrollBarPolicy" type="int" value="22"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[750, 480]"/>
                 </Property>
@@ -145,6 +150,8 @@
           <SubComponents>
             <Container class="javax.swing.JScrollPane" name="mensagemJSP">
               <Properties>
+                <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
+                <Property name="verticalScrollBarPolicy" type="int" value="22"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[750, 90]"/>
                 </Property>
@@ -165,6 +172,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextArea" name="mensagemTA">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
                   </Properties>

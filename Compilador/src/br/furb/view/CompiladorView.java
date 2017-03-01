@@ -5,9 +5,11 @@
  */
 package br.furb.view;
 
+import br.furb.lib.NumberedBorder;
+
 /**
  *
- * @author usuario
+ * @author flavioomar
  */
 public class CompiladorView extends javax.swing.JFrame {
 
@@ -16,6 +18,7 @@ public class CompiladorView extends javax.swing.JFrame {
      */
     public CompiladorView() {
         initComponents();
+        this.editorTA.setBorder(new NumberedBorder());
         this.setSize(914, 627);
     }
 
@@ -42,8 +45,9 @@ public class CompiladorView extends javax.swing.JFrame {
         statusJL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(900, 620));
-        setSize(new java.awt.Dimension(900, 620));
+        setMinimumSize(new java.awt.Dimension(914, 627));
+        setPreferredSize(new java.awt.Dimension(914, 627));
+        setSize(new java.awt.Dimension(914, 627));
 
         principalJP.setLayout(new java.awt.GridBagLayout());
 
@@ -71,6 +75,8 @@ public class CompiladorView extends javax.swing.JFrame {
         editorJP.setPreferredSize(new java.awt.Dimension(750, 480));
         editorJP.setLayout(new java.awt.BorderLayout());
 
+        editorJSP.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        editorJSP.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         editorJSP.setMinimumSize(new java.awt.Dimension(750, 480));
         editorJSP.setPreferredSize(new java.awt.Dimension(750, 480));
 
@@ -92,9 +98,12 @@ public class CompiladorView extends javax.swing.JFrame {
         mensagemJP.setPreferredSize(new java.awt.Dimension(750, 90));
         mensagemJP.setLayout(new java.awt.BorderLayout());
 
+        mensagemJSP.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        mensagemJSP.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         mensagemJSP.setMinimumSize(new java.awt.Dimension(750, 90));
         mensagemJSP.setPreferredSize(new java.awt.Dimension(750, 90));
 
+        mensagemTA.setEditable(false);
         mensagemTA.setColumns(20);
         mensagemTA.setRows(5);
         mensagemJSP.setViewportView(mensagemTA);
