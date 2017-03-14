@@ -83,7 +83,7 @@
                 <Component class="javax.swing.JButton" name="jBNovo">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/text-document.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/text-document.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="novo [ctrl-n]"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -106,7 +106,7 @@
                 <Component class="javax.swing.JButton" name="jBAbrir">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/file-in-folder.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/file-in-folder.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="abrir [ctrl-o]"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -122,11 +122,14 @@
                     </Property>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBAbrirActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBSalvar">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/diskette.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/diskette.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="salvar [ctrl-s]"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -143,11 +146,14 @@
                     </Property>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBSalvarActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jBCopiar">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/text-documents.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/text-documents.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="copiar [ctrl-c]"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -170,7 +176,7 @@
                 <Component class="javax.swing.JButton" name="jBColar">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/paste-file.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/paste-file.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="colar [ctrl-v]"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -193,7 +199,7 @@
                 <Component class="javax.swing.JButton" name="jBRecortar">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/icon.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/icon.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="recortar [ctrl-x]"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -216,7 +222,7 @@
                 <Component class="javax.swing.JButton" name="jBCompilar">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/music-player-play.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/music-player-play.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="compilar [F8]"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -239,7 +245,7 @@
                 <Component class="javax.swing.JButton" name="jBGerCod">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/handyman-tools.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/handyman-tools.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="gerar c&#xf3;digo [F9]"/>
                     <Property name="focusable" type="boolean" value="false"/>
@@ -262,7 +268,7 @@
                 <Component class="javax.swing.JButton" name="jBEquipe">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/br/furb/view/team.png"/>
+                      <Image iconType="3" name="/br/furb/imgs/team.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="equipe [F1]"/>
                     <Property name="focusable" type="boolean" value="false"/>

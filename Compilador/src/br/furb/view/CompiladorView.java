@@ -9,8 +9,16 @@ import br.furb.lib.NumberedBorder;
 import com.sun.glass.events.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -158,7 +166,7 @@ public class CompiladorView extends javax.swing.JFrame {
         barraFerramentaTB.setMinimumSize(new java.awt.Dimension(144, 544));
         barraFerramentaTB.setPreferredSize(new java.awt.Dimension(144, 544));
 
-        jBNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/text-document.png"))); // NOI18N
+        jBNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/text-document.png"))); // NOI18N
         jBNovo.setText("novo [ctrl-n]");
         jBNovo.setFocusable(false);
         jBNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -173,7 +181,7 @@ public class CompiladorView extends javax.swing.JFrame {
         });
         barraFerramentaTB.add(jBNovo);
 
-        jBAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/file-in-folder.png"))); // NOI18N
+        jBAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/file-in-folder.png"))); // NOI18N
         jBAbrir.setText("abrir [ctrl-o]");
         jBAbrir.setFocusable(false);
         jBAbrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -181,9 +189,14 @@ public class CompiladorView extends javax.swing.JFrame {
         jBAbrir.setMinimumSize(new java.awt.Dimension(145, 62));
         jBAbrir.setPreferredSize(new java.awt.Dimension(145, 62));
         jBAbrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAbrirActionPerformed(evt);
+            }
+        });
         barraFerramentaTB.add(jBAbrir);
 
-        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/diskette.png"))); // NOI18N
+        jBSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/diskette.png"))); // NOI18N
         jBSalvar.setText("salvar [ctrl-s]");
         jBSalvar.setToolTipText("");
         jBSalvar.setFocusable(false);
@@ -192,9 +205,14 @@ public class CompiladorView extends javax.swing.JFrame {
         jBSalvar.setMinimumSize(new java.awt.Dimension(145, 62));
         jBSalvar.setPreferredSize(new java.awt.Dimension(145, 62));
         jBSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalvarActionPerformed(evt);
+            }
+        });
         barraFerramentaTB.add(jBSalvar);
 
-        jBCopiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/text-documents.png"))); // NOI18N
+        jBCopiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/text-documents.png"))); // NOI18N
         jBCopiar.setText("copiar [ctrl-c]");
         jBCopiar.setFocusable(false);
         jBCopiar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -209,7 +227,7 @@ public class CompiladorView extends javax.swing.JFrame {
         });
         barraFerramentaTB.add(jBCopiar);
 
-        jBColar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/paste-file.png"))); // NOI18N
+        jBColar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/paste-file.png"))); // NOI18N
         jBColar.setText("colar [ctrl-v]");
         jBColar.setFocusable(false);
         jBColar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -224,7 +242,7 @@ public class CompiladorView extends javax.swing.JFrame {
         });
         barraFerramentaTB.add(jBColar);
 
-        jBRecortar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/icon.png"))); // NOI18N
+        jBRecortar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/icon.png"))); // NOI18N
         jBRecortar.setText("recortar [ctrl-x]");
         jBRecortar.setFocusable(false);
         jBRecortar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -239,7 +257,7 @@ public class CompiladorView extends javax.swing.JFrame {
         });
         barraFerramentaTB.add(jBRecortar);
 
-        jBCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/music-player-play.png"))); // NOI18N
+        jBCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/music-player-play.png"))); // NOI18N
         jBCompilar.setText("compilar [F8]");
         jBCompilar.setFocusable(false);
         jBCompilar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -254,7 +272,7 @@ public class CompiladorView extends javax.swing.JFrame {
         });
         barraFerramentaTB.add(jBCompilar);
 
-        jBGerCod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/handyman-tools.png"))); // NOI18N
+        jBGerCod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/handyman-tools.png"))); // NOI18N
         jBGerCod.setText("gerar código [F9]");
         jBGerCod.setFocusable(false);
         jBGerCod.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -269,7 +287,7 @@ public class CompiladorView extends javax.swing.JFrame {
         });
         barraFerramentaTB.add(jBGerCod);
 
-        jBEquipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/view/team.png"))); // NOI18N
+        jBEquipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/imgs/team.png"))); // NOI18N
         jBEquipe.setText("equipe [F1]");
         jBEquipe.setFocusable(false);
         jBEquipe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -397,6 +415,61 @@ public class CompiladorView extends javax.swing.JFrame {
     private void jBRecortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRecortarActionPerformed
         editorTA.cut();
     }//GEN-LAST:event_jBRecortarActionPerformed
+
+    private void jBAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAbrirActionPerformed
+        JFileChooser abreArquivo = new JFileChooser();
+        abreArquivo.setFileFilter(new ExtensionFileFilter());
+        abreArquivo.setAcceptAllFileFilterUsed(false);
+        abreArquivo.setDialogType(JFileChooser.OPEN_DIALOG);
+        if (abreArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = abreArquivo.getSelectedFile();
+            try {
+                BufferedReader bf = new BufferedReader(new FileReader(arquivo));
+                StringBuilder conteudoArquivo = new StringBuilder();
+                String linha = bf.readLine();
+                while (linha != null) {
+                    conteudoArquivo.append(linha).append("\n");
+                    linha = bf.readLine();
+                }
+                editorTA.setText(conteudoArquivo.toString());
+                bf.close();
+            } catch (FileNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "Não foi possível encontrar o arquivo selecionado.");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Houve um problema ao tentar abrir o arquivo.");
+            }
+        }
+    }//GEN-LAST:event_jBAbrirActionPerformed
+
+    private void jBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalvarActionPerformed
+        JFileChooser salvaArquivo = new JFileChooser();
+        salvaArquivo.setFileFilter(new ExtensionFileFilter());
+        salvaArquivo.setAcceptAllFileFilterUsed(false);
+        salvaArquivo.setDialogType(JFileChooser.SAVE_DIALOG);
+        if (salvaArquivo.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = salvaArquivo.getSelectedFile();
+            arquivo = new File(arquivo.getAbsolutePath() + ".txt");
+            boolean gravar = true;
+            if (arquivo.exists()) {
+                gravar = JOptionPane.showConfirmDialog(this, 
+                        "O arquivo informado já existe, deseja substituir?", "Arquivo existente",  JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+            }
+            if (gravar) {
+                try {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo));
+                    bw.write(editorTA.getText().replace("\n", "\r\n"));
+                    bw.flush();
+                    bw.close();
+                } catch (FileNotFoundException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possível encontrar o arquivo selecionado.");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Houve um problema ao tentar abrir o arquivo.");
+                }
+            } else {
+                jBSalvarActionPerformed(evt);
+            }
+        }
+    }//GEN-LAST:event_jBSalvarActionPerformed
 
     /**
      * @param args the command line arguments
