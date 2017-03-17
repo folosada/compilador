@@ -27,7 +27,9 @@ import javax.swing.KeyStroke;
  * @author flavioomar
  */
 public class CompiladorView extends javax.swing.JFrame {
-
+    
+    private String caminhoArquivo;
+    
     /**
      * Creates new form CompiladorView
      */
@@ -36,7 +38,8 @@ public class CompiladorView extends javax.swing.JFrame {
         this.editorTA.setBorder(new NumberedBorder());
         this.setSize(914, 627);
         this.editorTA.addKeyListener(new TextAreaListener());
-
+        this.caminhoArquivo = null;
+        
         //Atalho do botão novo
         jBNovo.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK), "evento");
         jBNovo.getActionMap().put("evento", new AbstractAction() {
@@ -174,7 +177,6 @@ public class CompiladorView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(914, 627));
-        setPreferredSize(new java.awt.Dimension(914, 627));
         setSize(new java.awt.Dimension(914, 627));
 
         principalJP.setLayout(new java.awt.GridBagLayout());
@@ -425,6 +427,7 @@ public class CompiladorView extends javax.swing.JFrame {
         editorTA.setText("");
         mensagemTA.setText("");
         statusJL.setText("Não modificado");
+        this.caminhoArquivo = null;
     }//GEN-LAST:event_jBNovoActionPerformed
 
     private void jBCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCopiarActionPerformed
@@ -446,6 +449,7 @@ public class CompiladorView extends javax.swing.JFrame {
         abreArquivo.setDialogType(JFileChooser.OPEN_DIALOG);
         if (abreArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File arquivo = abreArquivo.getSelectedFile();
+            this.caminhoArquivo = abreArquivo.getSelectedFile().toString();
             try {
                 BufferedReader bf = new BufferedReader(new FileReader(arquivo));
                 StringBuilder conteudoArquivo = new StringBuilder();
@@ -469,29 +473,33 @@ public class CompiladorView extends javax.swing.JFrame {
         salvaArquivo.setFileFilter(new ExtensionFileFilter());
         salvaArquivo.setAcceptAllFileFilterUsed(false);
         salvaArquivo.setDialogType(JFileChooser.SAVE_DIALOG);
-        if (salvaArquivo.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File arquivo = salvaArquivo.getSelectedFile();
-            arquivo = new File(arquivo.getAbsolutePath() + ".txt");
-            boolean gravar = true;
-            if (arquivo.exists()) {
-                gravar = JOptionPane.showConfirmDialog(this,
-                        "O arquivo informado já existe, deseja substituir?", "Arquivo existente", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+        File arquivo = null;
+        
+        boolean caminhoSelecionado = true;
+        
+        if (this.caminhoArquivo == null) {
+            caminhoSelecionado = salvaArquivo.showSaveDialog(this) == JFileChooser.APPROVE_OPTION;
+            if (caminhoSelecionado) {
+                arquivo = salvaArquivo.getSelectedFile();
+                arquivo = new File(arquivo.getAbsolutePath() + ".txt");
             }
-            if (gravar) {
-                try {
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo));
-                    bw.write(editorTA.getText().replace("\n", "\r\n"));
-                    bw.flush();
-                    bw.close();
-                    statusJL.setText("Não modificado.");
-                } catch (FileNotFoundException ex) {
-                    JOptionPane.showMessageDialog(this, "Não foi possível encontrar o arquivo selecionado.");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Houve um problema ao tentar abrir o arquivo.");
-                }
-            } else {
-                jBSalvarActionPerformed(evt);
+        } else {
+            arquivo = new File(this.caminhoArquivo);
+        }
+        
+        try {
+            if (caminhoSelecionado) {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo));
+                bw.write(editorTA.getText().replace("\n", "\r\n"));
+                bw.flush();
+                bw.close();
+                this.caminhoArquivo = arquivo.toString();
+                statusJL.setText("Não modificado.");
             }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Não foi possível encontrar o arquivo selecionado.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Houve um problema ao tentar abrir o arquivo.");
         }
     }//GEN-LAST:event_jBSalvarActionPerformed
 
