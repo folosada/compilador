@@ -9,6 +9,7 @@ import br.furb.lib.NumberedBorder;
 import com.sun.glass.events.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,6 +35,7 @@ public class CompiladorView extends javax.swing.JFrame {
         initComponents();
         this.editorTA.setBorder(new NumberedBorder());
         this.setSize(914, 627);
+        this.editorTA.addKeyListener(new TextAreaListener());
 
         //Atalho do botão novo
         jBNovo.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK), "evento");
@@ -116,6 +118,27 @@ public class CompiladorView extends javax.swing.JFrame {
             }
         });
 
+    }
+
+    class TextAreaListener implements KeyListener {
+
+        public TextAreaListener() {
+        }
+
+        @Override
+        public void keyTyped(java.awt.event.KeyEvent ke) {
+            statusJL.setText("Modificado");
+        }
+
+        @Override
+        public void keyPressed(java.awt.event.KeyEvent ke) {
+            statusJL.setText("Modificado");
+        }
+
+        @Override
+        public void keyReleased(java.awt.event.KeyEvent ke) {
+            statusJL.setText("Modificado");
+        }
     }
 
     /**
@@ -364,7 +387,7 @@ public class CompiladorView extends javax.swing.JFrame {
         statusJP.setPreferredSize(new java.awt.Dimension(900, 25));
         statusJP.setLayout(new java.awt.BorderLayout());
 
-        statusJL.setText("jLabel1");
+        statusJL.setText("Não modificado");
         statusJL.setMinimumSize(new java.awt.Dimension(900, 25));
         statusJL.setPreferredSize(new java.awt.Dimension(900, 25));
         statusJP.add(statusJL, java.awt.BorderLayout.CENTER);
@@ -451,8 +474,8 @@ public class CompiladorView extends javax.swing.JFrame {
             arquivo = new File(arquivo.getAbsolutePath() + ".txt");
             boolean gravar = true;
             if (arquivo.exists()) {
-                gravar = JOptionPane.showConfirmDialog(this, 
-                        "O arquivo informado já existe, deseja substituir?", "Arquivo existente",  JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+                gravar = JOptionPane.showConfirmDialog(this,
+                        "O arquivo informado já existe, deseja substituir?", "Arquivo existente", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
             }
             if (gravar) {
                 try {
@@ -460,6 +483,7 @@ public class CompiladorView extends javax.swing.JFrame {
                     bw.write(editorTA.getText().replace("\n", "\r\n"));
                     bw.flush();
                     bw.close();
+                    statusJL.setText("Não modificado.");
                 } catch (FileNotFoundException ex) {
                     JOptionPane.showMessageDialog(this, "Não foi possível encontrar o arquivo selecionado.");
                 } catch (Exception e) {

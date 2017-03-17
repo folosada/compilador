@@ -410,7 +410,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="statusJL">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="text" type="java.lang.String" value="N&#xe3;o modificado"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[900, 25]"/>
                 </Property>
