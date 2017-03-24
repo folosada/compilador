@@ -7,7 +7,7 @@ package br.furb.compilador;
 public class Compilador {
 
     public static String compilar(String codigoFonte) throws LexicalError {
-        return analiseLexica(codigoFonte);
+        return analiseLexica(codigoFonte) + "\nPrograma compilado com sucesso!";
     }
 
     private static String analiseLexica(String codigoFonte) throws LexicalError {
@@ -22,6 +22,6 @@ public class Compilador {
             tabela.append(String.format("|%1$5s|%2$-20s|%3$-35s|\n", t.getLine(), t.getClassToken(), t.getLexeme()));
         }
         tabela.append("+-----+--------------------+-----------------------------------+");
-        return tabela.toString();
+        return tabela.toString().split("\n").length > 4 ? tabela.toString() : "";
     }
 }    
