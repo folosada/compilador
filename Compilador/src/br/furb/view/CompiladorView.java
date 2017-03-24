@@ -5,6 +5,8 @@
  */
 package br.furb.view;
 
+import br.furb.compilador.Compilador;
+import br.furb.compilador.LexicalError;
 import br.furb.lib.NumberedBorder;
 import com.sun.glass.events.KeyEvent;
 import java.awt.event.ActionEvent;
@@ -16,6 +18,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -348,6 +352,7 @@ public class CompiladorView extends javax.swing.JFrame {
         editorJSP.setPreferredSize(new java.awt.Dimension(750, 480));
 
         editorTA.setColumns(20);
+        editorTA.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         editorTA.setRows(5);
         editorJSP.setViewportView(editorTA);
 
@@ -372,6 +377,7 @@ public class CompiladorView extends javax.swing.JFrame {
 
         mensagemTA.setEditable(false);
         mensagemTA.setColumns(20);
+        mensagemTA.setFont(new java.awt.Font("Courier New", 0, 13)); // NOI18N
         mensagemTA.setRows(5);
         mensagemJSP.setViewportView(mensagemTA);
 
@@ -416,7 +422,11 @@ public class CompiladorView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBEquipeActionPerformed
 
     private void jBCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCompilarActionPerformed
-        mensagemTA.setText("Compilação de programas ainda não foi implementada.");
+        try {
+            mensagemTA.setText(Compilador.compilar(editorTA.getText()));
+        } catch (LexicalError ex) {
+            mensagemTA.setText(ex.getMessage());
+        }
     }//GEN-LAST:event_jBCompilarActionPerformed
 
     private void jBGerCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerCodActionPerformed

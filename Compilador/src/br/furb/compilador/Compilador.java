@@ -6,19 +6,22 @@ package br.furb.compilador;
  */
 public class Compilador {
 
-    public static boolean compilar(String codigoFonte) {
-        return true;
+    public static String compilar(String codigoFonte) throws LexicalError {
+        return analiseLexica(codigoFonte);
     }
 
-    public static String analiseLexica(String codigoFonte) throws LexicalError {
+    private static String analiseLexica(String codigoFonte) throws LexicalError {
         Lexico lexico = new Lexico();
-        //...
         lexico.setInput(codigoFonte);
-        //...        
         Token t = null;
+        StringBuilder tabela = new StringBuilder(
+                "+-----+--------------------+-----------------------------------+\n"
+                + "|Linha|Classe              |Lexema                             |\n"
+                + "+-----+--------------------+-----------------------------------+\n");
         while ((t = lexico.nextToken()) != null) {
-            System.out.println(t.getLexeme());            
-        }               
-        return "";
+            tabela.append(String.format("|%1$5s|%2$-20s|%3$-35s|\n", t.getLine(), t.getClassToken(), t.getLexeme()));
+        }
+        tabela.append("+-----+--------------------+-----------------------------------+");
+        return tabela.toString();
     }
-}
+}    

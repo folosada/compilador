@@ -48,7 +48,7 @@ public class Lexico implements Constants {
             }
         }
         if (endState < 0 || (endState != state && tokenForState(lastState) == -2)) {
-            throw new LexicalError(SCANNER_ERROR[lastState], start);
+            throw new LexicalError(SCANNER_ERROR[lastState], start, getLine(start));
         }
 
         position = end;
@@ -60,7 +60,7 @@ public class Lexico implements Constants {
         } else {
             String lexeme = input.substring(start, end);
             token = lookupToken(token, lexeme);
-            return new Token(token, lexeme, start);
+            return new Token(token, lexeme, start, getLine(start));
         }
     }
 
@@ -123,5 +123,22 @@ public class Lexico implements Constants {
         } else {
             return (char) -1;
         }
+    }
+
+    public final int getLine(int positionStart) {
+        int position = 0;
+        int line = 0;
+        String[] codigo = input.split("\n");
+        for (int i = 0; i < codigo.length; i++) {
+            for (int j = 0; j < codigo[i].length(); j++) {
+                if (position == positionStart) {
+                    line = i + 1;
+                    return line;
+                }
+                ++position;
+            }
+            ++position;
+        }
+        return line;
     }
 }

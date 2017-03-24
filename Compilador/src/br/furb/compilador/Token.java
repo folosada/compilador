@@ -5,11 +5,17 @@ public class Token {
     private int id;
     private String lexeme;
     private int position;
+    private int line;
 
-    public Token(int id, String lexeme, int position) {
+    public Token(int id, String lexeme, int position, int line) {
         this.id = id;
         this.lexeme = lexeme;
         this.position = position;
+        this.line = line;
+    }
+
+    public int getLine() {
+        return line;
     }
 
     public final int getId() {
@@ -74,22 +80,6 @@ public class Token {
 
     public final String getLexeme() {
         return lexeme;
-    }
-
-    public final int getLine(String codigoFonte) {
-        int position = 0;
-        int line = 0;
-        String[] codigo = codigoFonte.split("\n");
-        for (int i = 0; i < codigo.length; i++) {
-            for (int j = 0; j < codigo[i].length(); j++) {
-                if (position == this.position) {
-                   line = i;
-                   break;
-                }
-                ++position;
-            }
-        }
-        return line;
     }
 
     public String toString() {
