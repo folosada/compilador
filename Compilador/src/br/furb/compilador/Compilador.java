@@ -14,14 +14,11 @@ public class Compilador {
         Lexico lexico = new Lexico();
         lexico.setInput(codigoFonte);
         Token t = null;
-        StringBuilder tabela = new StringBuilder(
-                "+-----+--------------------+-----------------------------------+\n"
-                + "|Linha|Classe              |Lexema                             |\n"
-                + "+-----+--------------------+-----------------------------------+\n");
+        StringBuilder tabela = new StringBuilder();
         while ((t = lexico.nextToken()) != null) {
-            tabela.append(String.format("|%1$5s|%2$-20s|%3$-35s|\n", t.getLine(), t.getClassToken(), t.getLexeme()));
+            tabela.append("Linha ").append(t.getLine()).append(" - ").
+                    append(t.getClassToken()).append(": ").append(t.getLexeme()).append("\n");
         }
-        tabela.append("+-----+--------------------+-----------------------------------+");
-        return tabela.toString().split("\n").length > 4 ? tabela.toString() : "";
+        return tabela.toString();
     }
-}    
+}
