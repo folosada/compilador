@@ -7,7 +7,7 @@ package br.furb.compilador;
 public class Compilador {
 
     public static String compilar(String codigoFonte) throws LexicalError {
-        return analiseLexica(codigoFonte) + "\nPrograma compilado com sucesso!";
+        return "Programa compilado com sucesso!";
     }
 
     private static String analiseLexica(String codigoFonte) throws LexicalError {

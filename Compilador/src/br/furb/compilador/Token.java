@@ -82,6 +82,10 @@ public class Token {
         return lexeme;
     }
 
+	public final int getPosition() {
+        return position;
+    }
+	
     public String toString() {
         return id + " ( " + lexeme + " ) @ " + position;
     }
