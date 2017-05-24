@@ -64,6 +64,10 @@ public class Lexico implements Constants {
         }
     }
 
+    public String getInput() {
+        return input;
+    }
+
     private int nextState(char c, int state) {
         int start = SCANNER_TABLE_INDEXES[state];
         int end = SCANNER_TABLE_INDEXES[state + 1] - 1;

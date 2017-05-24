@@ -10,15 +10,12 @@ public class SyntaticError extends AnalysisError {
         super(msg);
     }
     
-    public SyntaticError(String msg, int position, int line, char firstChar) {
-        super(getMessage(msg, line, firstChar), position);
+    public SyntaticError(String msg, int position, int line, Token lexeme) {
+        super(getMessage(msg, line, lexeme), position);
     }
     
-    private static String getMessage(String msg, int line, char firstChar) {
-        String message = "Linha: " + line + " " + msg;
-        if ("Símbolo inválido".equals(msg)) {
-            message += " -> " + firstChar;
-        }
+    private static String getMessage(String msg, int line, Token lexeme) {
+        String message = "Erro na linha " + line + " - Encontrado " + lexeme.getLexeme() + ". " + msg + ".";
         return message;
     }
 }

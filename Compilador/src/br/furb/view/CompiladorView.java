@@ -422,11 +422,7 @@ public class CompiladorView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBEquipeActionPerformed
 
     private void jBCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCompilarActionPerformed
-        try {
-            mensagemTA.setText(Compilador.compilar(editorTA.getText()).trim());
-        } catch (LexicalError ex) {
-            mensagemTA.setText(ex.getMessage());
-        }
+        mensagemTA.setText(Compilador.compilar(editorTA.getText()).trim());
     }//GEN-LAST:event_jBCompilarActionPerformed
 
     private void jBGerCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerCodActionPerformed

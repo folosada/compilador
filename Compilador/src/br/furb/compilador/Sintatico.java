@@ -30,7 +30,7 @@ public class Sintatico implements Constants {
                 pos = previousToken.getPosition() + previousToken.getLexeme().length();
             }
 
-            currentToken = new Token(DOLLAR, "$", pos, getLine(pos));
+            currentToken = new Token(DOLLAR, "fim do arquivo", pos, getLine(pos));
         }
 
         int x = ((Integer) stack.pop()).intValue();
@@ -48,13 +48,15 @@ public class Sintatico implements Constants {
                     return false;
                 }
             } else {
-                throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition());
+                throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition(), 
+                        currentToken.getLine(), currentToken);
             }
         } else if (isNonTerminal(x)) {
             if (pushProduction(x, a)) {
                 return false;
             } else {
-                throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition());
+                throw new SyntaticError(PARSER_ERROR[x], currentToken.getPosition(), 
+                        currentToken.getLine(), currentToken);
             }
         } else // isSemanticAction(x)
         {
@@ -77,8 +79,8 @@ public class Sintatico implements Constants {
         }
     }
 
-    public void parse(String input, Lexico scanner, Semantico semanticAnalyser) throws LexicalError, SyntaticError, SemanticError {
-        this.input = input;
+    public void parse(Lexico scanner, Semantico semanticAnalyser) throws LexicalError, SyntaticError, SemanticError {
+        this.input = scanner.getInput();
         this.scanner = scanner;
         this.semanticAnalyser = semanticAnalyser;
 
@@ -92,14 +94,11 @@ public class Sintatico implements Constants {
             ;
     }
     
-    private int getLine(int posicao) {
-        String[] texto = input.split("\n");
-        int i = 0;
-        int total = 0;
-        while (texto[i].length() + total < posicao+1) {
-            total += texto[i].length();
-            ++i;
-        }
-        return i+1;
+    public final int getLine(int positionStart) {
+        int position = 0;
+        int line = 0;
+        String texto = input.substring(0, positionStart);
+        String[] codigo = texto.split("\n");        
+        return codigo.length;
     }
 }

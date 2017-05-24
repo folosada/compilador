@@ -15,7 +15,7 @@ public class LexicalError extends AnalysisError {
     }
     
     private static String getMessage(String msg, int line, char firstChar) {
-        String message = "Linha: " + line + " " + msg;
+        String message = "Erro na linha " + line + " - " + msg;
         if ("Símbolo inválido".equals(msg)) {
             message += " -> " + firstChar;
         }

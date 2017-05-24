@@ -6,7 +6,16 @@ package br.furb.compilador;
  */
 public class Compilador {
 
-    public static String compilar(String codigoFonte) throws LexicalError {
+    public static String compilar(String codigoFonte) {
+        try {
+            Sintatico sintatico = new Sintatico();
+            Lexico lexico = new Lexico();
+            lexico.setInput(codigoFonte);
+            Semantico semantico = new Semantico();
+            sintatico.parse(lexico, null);
+        } catch (LexicalError | SyntaticError | SemanticError le) {
+            return le.getMessage();
+        }
         return "Programa compilado com sucesso!";
     }
 
