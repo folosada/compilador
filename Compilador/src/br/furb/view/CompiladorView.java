@@ -180,6 +180,7 @@ public class CompiladorView extends javax.swing.JFrame {
         statusJL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Compilador");
         setMinimumSize(new java.awt.Dimension(914, 627));
         setSize(new java.awt.Dimension(914, 627));
 
