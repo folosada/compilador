@@ -12,7 +12,7 @@ public class Compilador {
             Lexico lexico = new Lexico();
             lexico.setInput(codigoFonte);
             Semantico semantico = new Semantico();
-            sintatico.parse(lexico, null);
+            sintatico.parse(lexico, semantico);
         } catch (LexicalError | SyntaticError | SemanticError le) {
             return le.getMessage();
         }
