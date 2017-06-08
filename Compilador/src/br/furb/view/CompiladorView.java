@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -427,7 +428,10 @@ public class CompiladorView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCompilarActionPerformed
 
     private void jBGerCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGerCodActionPerformed
-        mensagemTA.setText("geração de código ainda não foi implementada.");
+        if (this.caminhoArquivo == null || "".equals(this.caminhoArquivo)) {
+            jBSalvar.doClick();
+        }
+        mensagemTA.setText(Compilador.gerarCodigo(editorTA.getText(), this.caminhoArquivo));
     }//GEN-LAST:event_jBGerCodActionPerformed
 
     private void jBNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoActionPerformed
@@ -500,7 +504,7 @@ public class CompiladorView extends javax.swing.JFrame {
                 bw.write(editorTA.getText().replace("\n", "\r\n"));
                 bw.flush();
                 bw.close();
-                this.caminhoArquivo = arquivo.toString();
+                this.caminhoArquivo = arquivo.toString(); // verificar se não precisa chamar getAbsolutePath()
                 statusJL.setText("Não modificado.");
             }
         } catch (FileNotFoundException ex) {
