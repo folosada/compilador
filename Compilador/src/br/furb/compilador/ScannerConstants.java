@@ -1430,7 +1430,7 @@ public interface ScannerConstants {
             = {0, 0, 0, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
 
     String[] SPECIAL_CASES_KEYS
-            = {"ALGORITMO", "ATÉ", "CARACTER", "E", "ENTÃO", "ESCREVE", "FALSO", "FIM", "FUNÇÃO", "INTEIRO", "INTERROMPA", "INÍCIO", "LEIA", "LÓGICO", "NÃO", "OU", "PROCEDIMENTO", "QUEBRA", "REAL", "REPITA", "RETORNE", "SE", "SENÃO", "VARIÁVEIS", "VERDADEIRO"};
+            = {"ALGORITMO", "AT�", "CARACTER", "E", "ENT�O", "ESCREVA", "FALSO", "FIM", "FUN��O", "INTEIRO", "INTERROMPA", "IN�CIO", "LEIA", "L�GICO", "N�O", "OU", "PROCEDIMENTO", "QUEBRA", "REAL", "REPITA", "RETORNE", "SE", "SEN�O", "VARI�VEIS", "VERDADEIRO"};
 
     int[] SPECIAL_CASES_VALUES
             = {6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
@@ -1459,7 +1459,7 @@ public interface ScannerConstants {
                 "Constante caracter inválida ou não finalizada",
                 "",
                 "Comentário de bloco inválido ou não finalizado",
-                "Erro identificando constante_real", // nunca é usada
+                "Erro identificando constante_real", // nunca � usada
                 "",
                 "",
                 "",

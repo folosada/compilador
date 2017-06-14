@@ -16,22 +16,22 @@ public class Compilador {
             String nomeArquivo = Paths.get(caminhoArquivo).getFileName().toString();
             nomeArquivo = nomeArquivo.split(".txt$")[0];
             String diretorio = Paths.get(caminhoArquivo).getParent().toString();
-            
+
             Sintatico sintatico = new Sintatico();
             Lexico lexico = new Lexico();
             lexico.setInput(codigoFonte);
             Semantico semantico = new Semantico(nomeArquivo);
             sintatico.parse(lexico, semantico);
-            
+
             StringBuilder codigoGerado = semantico.getCodigoGerado();
-            
+
             BufferedWriter bw = new BufferedWriter(new FileWriter(diretorio + "\\" + nomeArquivo + ".il"));
-            
+
             bw.write(codigoGerado.toString());
-            
+
             bw.flush();
             bw.close();
-            
+
         } catch (LexicalError | SyntaticError | SemanticError le) {
             return le.getMessage();
         } catch (IOException ie) {
@@ -39,7 +39,7 @@ public class Compilador {
         }
         return "Programa compilado com sucesso!";
     }
-    
+
     public static String compilar(String codigoFonte) {
         try {
             Sintatico sintatico = new Sintatico();

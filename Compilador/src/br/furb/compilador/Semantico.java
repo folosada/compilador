@@ -9,19 +9,19 @@ public class Semantico implements Constants {
     private String nomeArquivo = null;
     private String operador = null;
 
-    
     public Semantico() {
     }
+
     public Semantico(String nomeArquivo) {
         this.nomeArquivo = nomeArquivo;
     }
-    
+
     public StringBuilder getCodigoGerado() {
         return codigo;
     }
-    
-    public void executeAction(int action, Token token) throws SemanticError {
 
+    public void executeAction(int action, Token token) throws SemanticError {
+        System.out.println(action);
         switch (action) {
             case 1:
                 acao01(token);
@@ -101,27 +101,27 @@ public class Semantico implements Constants {
             throw new SemanticError("Tipos incompatíveis", token.getPosition());
         }
     }
-    
+
     private void acao01(Token token) throws SemanticError {
         acaoOperadores(token);
         codigo.append("add\n");
     }
-    
+
     private void acao02(Token token) throws SemanticError {
         acaoOperadores(token);
         codigo.append("sub\n");
     }
-    
+
     private void acao03(Token token) throws SemanticError {
         acaoOperadores(token);
         codigo.append("mul\n");
     }
-    
+
     private void acao04(Token token) throws SemanticError {
         acaoOperadores(token);
         codigo.append("div\n");
     }
- 
+
     private void acao05(Token token) {
         pilha.push("int64");
         codigo.append("ldc.i8 ").append(token.getLexeme()).append("\n");
@@ -145,7 +145,7 @@ public class Semantico implements Constants {
             throw new SemanticError("Tipo incompatível em operação unária", token.getPosition());
         }
     }
-    
+
     private void acao09(Token token) throws SemanticError {
         String tipo = pilha.pop();
         if ("float64".equals(tipo) || "int64".equals(tipo)) {
@@ -156,7 +156,7 @@ public class Semantico implements Constants {
             throw new SemanticError("Tipo incompatível em operação unária", token.getPosition());
         }
     }
-    
+
     private void acao10(Token token) throws SemanticError {
         String tipo01 = pilha.pop();
         String tipo02 = pilha.pop();
@@ -177,21 +177,21 @@ public class Semantico implements Constants {
                 break;
         }
     }
-    
+
     private void acao11(Token token) {
         operador = token.getLexeme();
     }
-    
+
     private void acao12(Token token) {
         pilha.push("bool");
         codigo.append("ldc.i4.1\n");
     }
-    
+
     private void acao13(Token token) {
         pilha.push("bool");
         codigo.append("ldc.i4.0\n");
     }
-    
+
     private void acao14(Token token) throws SemanticError {
         String tipo = pilha.pop();
         if ("bool".equals(tipo)) {
@@ -202,7 +202,7 @@ public class Semantico implements Constants {
         codigo.append("ldc.i4.1\n");
         codigo.append("xor\n");
     }
-    
+
     private void acao15() {
         String filename = "";
         codigo.append(".assembly extern mscorlib {}\n")

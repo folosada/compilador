@@ -21,7 +21,7 @@ public class Token {
     public final int getId() {
         return id;
     }
-    
+
     public final String getClassToken() {
         if (id == 2) {
             return "identificador";
@@ -43,10 +43,10 @@ public class Token {
         return lexeme;
     }
 
-	public final int getPosition() {
+    public final int getPosition() {
         return position;
     }
-	
+
     public String toString() {
         return id + " ( " + lexeme + " ) @ " + position;
     }
