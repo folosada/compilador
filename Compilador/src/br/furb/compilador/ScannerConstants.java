@@ -1430,7 +1430,7 @@ public interface ScannerConstants {
             = {0, 0, 0, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25};
 
     String[] SPECIAL_CASES_KEYS
-            = {"ALGORITMO", "AT�", "CARACTER", "E", "ENT�O", "ESCREVA", "FALSO", "FIM", "FUN��O", "INTEIRO", "INTERROMPA", "IN�CIO", "LEIA", "L�GICO", "N�O", "OU", "PROCEDIMENTO", "QUEBRA", "REAL", "REPITA", "RETORNE", "SE", "SEN�O", "VARI�VEIS", "VERDADEIRO"};
+            = {"ALGORITMO", "ATÉ", "CARACTER", "E", "ENTÃO", "ESCREVA", "FALSO", "FIM", "FUNÇÃO", "INTEIRO", "INTERROMPA", "INÍCIO", "LEIA", "LÓGICO", "NÃO", "OU", "PROCEDIMENTO", "QUEBRA", "REAL", "REPITA", "RETORNE", "SE", "SENÃO", "VARIÁVEIS", "VERDADEIRO"};
 
     int[] SPECIAL_CASES_VALUES
             = {6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};

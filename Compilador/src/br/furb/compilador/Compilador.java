@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 public class Compilador {
 
     public static String gerarCodigo(String codigoFonte, String caminhoArquivo) {
-        try {
+        try {            
             String nomeArquivo = Paths.get(caminhoArquivo).getFileName().toString();
             nomeArquivo = nomeArquivo.split(".txt$")[0];
             String diretorio = Paths.get(caminhoArquivo).getParent().toString();
@@ -37,7 +37,7 @@ public class Compilador {
         } catch (IOException ie) {
             return "Problema ao gerar código!\n" + ie.getMessage();
         }
-        return "Programa compilado com sucesso!";
+        return "Código objeto gerado com sucesso!";
     }
 
     public static String compilar(String codigoFonte) {
