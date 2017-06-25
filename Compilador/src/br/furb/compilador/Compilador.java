@@ -16,7 +16,7 @@ public class Compilador {
             String nomeArquivo = Paths.get(caminhoArquivo).getFileName().toString();
             nomeArquivo = nomeArquivo.split(".txt$")[0];
             String diretorio = Paths.get(caminhoArquivo).getParent().toString();
-
+            nomeArquivo = nomeArquivo.replace(' ', '_');
             Sintatico sintatico = new Sintatico();
             Lexico lexico = new Lexico();
             lexico.setInput(codigoFonte);

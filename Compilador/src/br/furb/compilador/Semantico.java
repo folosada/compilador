@@ -11,7 +11,7 @@ public class Semantico implements Constants {
     private LinkedList<String> listaIdentificadores = new LinkedList();
     private ArrayList<String> listaMetodos = new ArrayList();
     private HashMap<String, String> tabelaSimbolosGlobal = new HashMap();
-    private HashMap<String, HashMap<String, String>> tabelaSimbolosAuxiliar;
+    private HashMap<String, HashMap<String, String>> tabelaSimbolosAuxiliar = new HashMap();
     private HashMap<String, HashMap<String, String>> tabelaParametros = new HashMap();
     private String tipoGlobal;
     private StringBuilder codigo = new StringBuilder();
@@ -89,46 +89,67 @@ public class Semantico implements Constants {
                 acao18();
                 break;
             case 19:
+                acao19(token);
                 break;
             case 20:
+                acao20(token);
                 break;
             case 21:
+                acao21(token);
                 break;
             case 22:
+                acao22(token);
                 break;
             case 23:
+                acao23(token);
                 break;
             case 24:
+                acao24(token);
                 break;
             case 25:
+                acao25(token);
                 break;
             case 26:
+                acao26(token);
                 break;
             case 27:
+                acao27(token);
                 break;
             case 28:
+                acao28(token);
                 break;
             case 29:
+                acao29(token);
                 break;
             case 30:
+                acao30(token);
                 break;
             case 31:
+                acao31(token);
                 break;
             case 32:
+                acao32(token);
                 break;
             case 33:
+                acao33(token);
                 break;
             case 34:
+                acao34(token);
                 break;
             case 35:
+                acao35(token);
                 break;
             case 36:
+                acao36(token);
                 break;
             case 37:
+                acao37(token);
                 break;
             case 38:
+                acao38(token);
                 break;
             case 39:
+                acao39(token);
                 break;
             default:
                 break;
@@ -210,6 +231,8 @@ public class Semantico implements Constants {
         String tipo02 = pilhaTipos.pop();
         if (tipo01.equals("float64") && tipo02.equals("int64")
                 || tipo01.equals("int64") && tipo02.equals("float64")
+                || tipo01.equals("float64") && tipo02.equals("float64")
+                || tipo01.equals("int64") && tipo02.equals("int64")
                 || tipo01.equals("string") && tipo02.equals("string")) {
             pilhaTipos.push("bool");
         } else {
@@ -291,7 +314,7 @@ public class Semantico implements Constants {
 
     private void acao18() {
         pilhaTipos.push("string");
-        codigo.append("ldstr \"\\n\"");
+        codigo.append("ldstr \"\\n\"\n");
     }
 
     private void acao19(Token token) throws SemanticError {
@@ -375,11 +398,13 @@ public class Semantico implements Constants {
     }
 
     private void acao25(Token token) throws SemanticError {
+        String tipo;
         for (String identificador : listaIdentificadores) {
             if (pilhaContexto.peek().equals("global")) {
                 if (!tabelaSimbolosGlobal.containsKey(identificador)) {
                     throw new SemanticError("Identificador não declarado -> " + token.getLexeme(), token.getPosition(), token.getLine());
                 }
+                tipo = tabelaSimbolosGlobal.get(identificador);
             } else {
                 HashMap<String, String> parametrosContexto = tabelaParametros.get(pilhaContexto.peek());
                 HashMap<String, String> variaveisContexto = tabelaSimbolosAuxiliar.get(pilhaContexto.peek());
@@ -387,8 +412,9 @@ public class Semantico implements Constants {
                         && (variaveisContexto == null || !variaveisContexto.containsKey(identificador))) {
                     throw new SemanticError("Identificador não declarado -> " + token.getLexeme(), token.getPosition(), token.getLine());
                 }
+                tipo = parametrosContexto.get(identificador) == null ? variaveisContexto.get(identificador) : parametrosContexto.get(identificador);
             }
-            String tipo = tabelaSimbolosGlobal.get(identificador);
+            
             codigo.append("call string [mscorlib]System.Console::ReadLine()\n");
             if (!tipo.equals("string")) {
                 codigo.append("call ")
@@ -558,12 +584,14 @@ public class Semantico implements Constants {
         codigo.append(".method public static ").append(tipo).append(" _").append(token.getLexeme()).append("(");
         HashMap<String, String> parametrosContexto;
         if ((parametrosContexto = tabelaParametros.get(pilhaContexto.peek())) != null) {
-            for (Map.Entry<String, String> parametro : parametrosContexto.entrySet()) {
-                String param = parametro.getKey();
-                String tipoParam = parametro.getValue();
-                codigo.append(tipoParam).append(" ").append(param).append(", ");
+            if (parametrosContexto.size() > 0) {
+                for (Map.Entry<String, String> parametro : parametrosContexto.entrySet()) {
+                    String param = parametro.getKey();
+                    String tipoParam = parametro.getValue();
+                    codigo.append(tipoParam).append(" ").append(param).append(", ");
+                }
+                codigo.delete(codigo.length() - 2, codigo.length());
             }
-            codigo.delete(codigo.length() - 2, codigo.length());
         }
         codigo.append(") {\n");
     }
@@ -575,12 +603,14 @@ public class Semantico implements Constants {
         }
         codigo.append("call void _Principal::_").append(identificador).append("(");
         HashMap<String, String> parametrosContexto;
-        if ((parametrosContexto = tabelaParametros.get(pilhaContexto.peek())) != null) {
-            for (Map.Entry<String, String> parametro : parametrosContexto.entrySet()) {
-                String tipoParam = parametro.getValue();
-                codigo.append(tipoParam).append(", ");
+        if ((parametrosContexto = tabelaParametros.get(identificador)) != null) {
+            if (parametrosContexto.size() > 0) {
+                for (Map.Entry<String, String> parametro : parametrosContexto.entrySet()) {
+                    String tipoParam = parametro.getValue();
+                    codigo.append(tipoParam).append(", ");
+                }
+                codigo.delete(codigo.length() - 2, codigo.length());
             }
-            codigo.delete(codigo.length() - 2, codigo.length());
         }
         codigo.append(")\n");
     }
@@ -593,14 +623,16 @@ public class Semantico implements Constants {
         String tipo = tabelaSimbolosGlobal.get(identificador);
         codigo.append("call ").append(tipo).append(" _Principal::_").append(identificador).append("(");
         HashMap<String, String> parametrosContexto;
-        if ((parametrosContexto = tabelaParametros.get(pilhaContexto.peek())) != null) {
-            for (Map.Entry<String, String> parametro : parametrosContexto.entrySet()) {
-                String tipoParam = parametro.getValue();
-                codigo.append(tipoParam).append(", ");
+        if ((parametrosContexto = tabelaParametros.get(identificador)) != null) {
+            if (parametrosContexto.size() > 0) {
+                for (Map.Entry<String, String> parametro : parametrosContexto.entrySet()) {
+                    String tipoParam = parametro.getValue();
+                    codigo.append(tipoParam).append(", ");
+                }
+                codigo.delete(codigo.length() - 2, codigo.length());
             }
-            codigo.delete(codigo.length() - 2, codigo.length());
         }
         codigo.append(")\n");
-        listaIdentificadores.add(identificador);
+        //listaIdentificadores.add(identificador);
     }
 }
