@@ -633,6 +633,5 @@ public class Semantico implements Constants {
             }
         }
         codigo.append(")\n");
-        //listaIdentificadores.add(identificador);
     }
 }

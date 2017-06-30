@@ -26,15 +26,22 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.DocumentFilter;
 
 /**
  *
  * @author flavioomar
  */
 public class CompiladorView extends javax.swing.JFrame {
-    
+
     private String caminhoArquivo;
-    
+
     /**
      * Creates new form CompiladorView
      */
@@ -42,11 +49,28 @@ public class CompiladorView extends javax.swing.JFrame {
         initComponents();
         this.editorTA.setBorder(new NumberedBorder());
         this.setSize(914, 627);
-        this.editorTA.addKeyListener(new TextAreaListener());
+        //this.editorTA.addKeyListener(new TextAreaListener());
+        this.editorTA.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                statusJL.setText("Modificado");
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                statusJL.setText("Modificado");
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                statusJL.setText("Modificado");
+            }
+        });
         this.caminhoArquivo = null;
-        
+
         //Atalho do botão novo
-        jBNovo.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK), "evento");
+        jBNovo.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+                InputEvent.CTRL_DOWN_MASK), "evento");
         jBNovo.getActionMap().put("evento", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,27 +150,6 @@ public class CompiladorView extends javax.swing.JFrame {
             }
         });
 
-    }
-
-    class TextAreaListener implements KeyListener {
-
-        public TextAreaListener() {
-        }
-
-        @Override
-        public void keyTyped(java.awt.event.KeyEvent ke) {
-            statusJL.setText("Modificado");
-        }
-
-        @Override
-        public void keyPressed(java.awt.event.KeyEvent ke) {
-            statusJL.setText("Modificado");
-        }
-
-        @Override
-        public void keyReleased(java.awt.event.KeyEvent ke) {
-            statusJL.setText("Modificado");
-        }
     }
 
     /**
@@ -485,9 +488,9 @@ public class CompiladorView extends javax.swing.JFrame {
         salvaArquivo.setAcceptAllFileFilterUsed(false);
         salvaArquivo.setDialogType(JFileChooser.SAVE_DIALOG);
         File arquivo = null;
-        
+
         boolean caminhoSelecionado = true;
-        
+
         if (this.caminhoArquivo == null) {
             caminhoSelecionado = salvaArquivo.showSaveDialog(this) == JFileChooser.APPROVE_OPTION;
             if (caminhoSelecionado) {
@@ -497,7 +500,7 @@ public class CompiladorView extends javax.swing.JFrame {
         } else {
             arquivo = new File(this.caminhoArquivo);
         }
-        
+
         try {
             if (caminhoSelecionado) {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo));
@@ -505,7 +508,7 @@ public class CompiladorView extends javax.swing.JFrame {
                 bw.flush();
                 bw.close();
                 this.caminhoArquivo = arquivo.toString(); // verificar se não precisa chamar getAbsolutePath()
-                statusJL.setText("Não modificado.");
+                statusJL.setText("Não modificado");
             }
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Não foi possível encontrar o arquivo selecionado.");
